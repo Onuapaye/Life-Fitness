@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+<style type="text/css">
+  .red-color {
+    color: red;
+  }
+
+  .green-color {
+    color: #013334;
+  }  
+
+  .orang-color {
+    color: #ff6600;
+  }
+
+</style>
+
+<div class="col-md-12">
+  <div>
+    <p>
+      <%# if (current_user.role.role_name.downcase == UsersHelper::GET_USER_TYPE['admin_full'].downcase) || (current_user.role.role_name == UsersHelper::GET_USER_TYPE['admin_short'].downcase) then %>
+      <%= link_to 'New User Activity', new_user_activity_path, class: 'btn btn-success', remote: true %>
+      <% #end %>
+      <%#= link_to 'Add user', new_user_activity_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#show-contents', class: 'btn btn-primary btn-lg'}  %>
+    </p>
+  </div>
+
+  <div class="table-responsive">
+      <table class="table table-hover table-warning mb30">
+          <thead>
+            <tr>
+              <th>Activity Name</th>
+              <th>Date of Activity</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Total Expected</th>
+              <th>Total Covered</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <%# @user_activities.each do |user_activity| %>
+            <% current_user.user_activities.each do |user_activity| %>
+              
+              <tr>
+                <td><%= link_to user_activity.activity.activity_name.titleize, user_activity, remote: true %>
+                </td>
+                <td><%= user_activity.user_activity_date.strftime('%Y %b %d') %></td>
+                <td><%= user_activity.user_activity_start.strftime('%I:%M:%S') %></td>
+                <td><%= user_activity.user_activity_end.strftime('%I:%M:%S') %></td>
+                <td>
+                  <%= distance_of_time_in_words user_activity.activity.activity_min_duration, user_activity.activity.activity_max_duration %>
+                </td>
+                <td>
+                  <%= distance_of_time_in_words user_activity.user_activity_start, user_activity.user_activity_end %>
+                </td>
+
+                <td class="table-action">
+                  <a href="<%= user_activity_url(user_activity) %>" data-toggle="modal" title="" class="tooltips" data-original-title="Show" data-remote="true" ><i class="fa fa-eye orang-color"></i></a>&nbsp;&nbsp;|&nbsp;
+                  <a href="<%= edit_user_activity_path(user_activity) %>" data-toggle="tooltip" title="" class="tooltips" data-original-title="Edit" data-remote="true"><i class="fa fa-pencil green-color"></i></a>&nbsp;&nbsp;|&nbsp;
+                  <a href="/user_activities/<%= user_activity.id %>/delete"" data-toggle="tooltip" title="" class="delete-row tooltips" data-remote="true"><i class="fa fa-trash-o red-color"></i></a>
+                
+                  <%#= link_to "Delete", user_activity_delete_path(user_activity), remote: true, class: "btn btn-danger" %>
+                </td>
+              </tr>
+              
+
+            <% end %>
+
+          </tbody>
+      </table>
+  </div><!-- table-responsive -->
+</div>
+
+<!-- <a href="<%#= user_activity_url(user_activity) %>" data-toggle="tooltip" title="" class="delete-row tooltips" data-original-title="Delete" data-method="delete" data-confirm="Are you sure?"><i class="fa fa-trash-o red-color"></i></a> -->
+
+<!-- USED TO SHOW THE MODAL WINDOW -->
+<div id="show-contents">
+  
+</div>
+

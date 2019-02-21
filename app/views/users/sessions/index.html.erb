@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<style type="text/css">
+  .red-color {
+    color: red;
+  }
+
+  .green-color {
+    color: #013334;
+  }  
+
+  .orang-color {
+    color: #ff6600;
+  }
+
+</style>
+
+<div class="col-md-12">
+  <% if (current_user.role.role_name.downcase == UsersHelper::GET_USER_TYPE['admin_full'].downcase) || (current_user.role.role_name == UsersHelper::GET_USER_TYPE['admin_short'].downcase) then %>
+    <div>
+      <p>
+        <%= link_to 'New User', custom_user_registration_path, class: 'btn btn-success' %>
+      </p>
+    </div>
+  <% end %>
+  <!-- <button class="btn-primary btn">Change Me</button> -->
+
+  <div class="table-responsive">
+      <table class="table table-hover table-warning mb30">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>E-mail</th>
+              <th>Age (yrs)</th>
+              <th>Status</th>
+              <th>Role</th>
+              <th>Last Signin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% @users.each do |user| %>
+              
+              <tr>
+                <td><%= user.user_first_name.titleize %>, &nbsp; <%= user.user_last_name.upcase %></td>
+                <td><%= user.email %></td>
+                <td><%= user.user_age %></td>
+                <!-- check for true or false -->
+                <% if user.user_status == true %>
+                  <td><%= get_active_status %></td>
+                <% else %>
+                  <td><%= get_in_active_status %></td>
+                <% end %>
+                <td><%= user.role.role_name %></td>
+                <!-- check if last_sign_in_at value is null or not before formatting the value -->
+                <% if user.last_sign_in_at? %>
+                  <td><%= user.last_sign_in_at.strftime('%Y %b %d') %> @ <%= user.last_sign_in_at.strftime('%H:%M:%S') %></td>
+                <% else %>
+                  <td><%= user.last_sign_in_at %></td>
+                <% end %>
+
+                <td class="table-action">
+                  <a href="<%= show_user_profile_url(user) %>" title="" class="tooltips" data-original-title="View Profile"><i class="fa fa-eye orang-color"></i></a>&nbsp;&nbsp;|&nbsp;
+                  <a href="<%= custom_edit_user_registration_url(user) %>" data-toggle="tooltip" title="" class="tooltips" data-original-title="Edit"><i class="fa fa-pencil green-color"></i></a>
+                </td>
+              </tr>
+
+            <% end %>
+
+          </tbody>
+      </table>
+  </div><!-- table-responsive -->
+
+  
+</div>
+
+
+<!-- USED TO SHOW THE MODAL WINDOW -->
+<div id="show-contents">
+  
+</div>
+

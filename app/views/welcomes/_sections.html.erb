@@ -1,0 +1,157 @@
+<style type="text/css">
+
+  .surround-border {
+    border: 2px solid #013334;
+    border-radius: 5px;
+    text-align: center;
+    margin: 3px;
+    padding: 3px;
+    color: #ff6600;
+    max-width: 200px;
+
+    text-transform: capitalize;
+  }
+
+  .surround-border:hover {
+    border: 2px solid #ff6600;
+    border-radius: 5px;
+    background-color: rgb(1, 51, 52, 1);
+    font-weight: bold;
+  }
+
+   .surround-border:hover h5 {
+      color: #fff;
+      font-weight: bold;
+  } 
+
+  .surround-border:hover img {
+     border: 2px solid #ff6600;
+     padding: 2px;
+  }
+
+  h5 {
+    font-weight: bold;
+    color: #013334;
+    margin-top: 2px;
+  }
+
+  img {
+    border: 2px solid #013334;
+    padding: 2px;
+    margin-top: 10px;
+    border-radius: 5px;
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .override-btn {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .override-btn-primary {
+    color: #ff6600;
+    background-color: #013334;
+    border-color: #013334;
+    font-weight: bold;
+  }
+
+  #p-text {
+    font-weight: bold;
+  }
+
+  #c-span {
+    font-weight: normal;
+    font-size: small;
+    color: #013334;
+  }
+
+  .surround-border:hover #c-span {
+    color: #fff;
+  }
+
+  .surround-border:hover a {
+    color: #fff;
+    background-color: #ff6600;
+    border-color: #ff6600;
+    font-weight: bold;
+  }
+
+  .override-mb-5 {
+    margin-bottom: 2rem!important;
+  }
+
+  @media (min-width: 576px)
+   .override-container {
+      max-width: 540px; 
+  }
+
+  .override-container {
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 55px;
+      margin-right: auto;
+      margin-left: auto;
+  }
+
+</style>
+
+<script type="text/javascript">
+  function showDescription(desription) {
+    var the_des = desription;
+    this.getElementById('#')
+  }
+</script>
+
+<section class="section bg-light element-animate">
+
+  <div class="clearfix mb-5 pb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center heading-wrap">
+          <h2>Our Current Activities</h2>
+          <span class="back-text-dark">Activities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="override-container">
+    <div class="row no-gutters">
+
+      <% @our_activities.each do |a| %>
+
+        <div class="col-md-2 surround-border">
+
+          <div class="text">
+            <img src="<%= a.activity_avatar.url(:thumb) %>" alt="activity image">
+          </div>
+
+          <div class="text order-1">
+
+            <h5><%= a.activity_name %></h5>
+
+            <a href="<%= new_user_activity_path(@user_activity, :activity_id => a.id) %>"><p class="sched-time" id="p-text">
+              <span title="Min duration"><span class="fa fa-clock-o" ></span>&nbsp;<%= a.activity_min_duration %></span> <br>
+              <span title="Max duration"><span class="fa fa-clock-o"></span>&nbsp;<%= a.activity_max_duration %></span> <br>
+              <!-- <span title="Last updated"><span class="fa fa-calendar"></span>&nbsp;<%#= a.updated_at.strftime('%Y-%b-%d') %></span> <br> -->
+              <!-- <span id="c-span"><span></span>&nbsp;&nbsp;&#64;&nbsp;<%#= a.updated_at.strftime('%H:%M:%S %p') %></span> <br> -->
+            </p></a>
+
+            <!-- <p> -->
+              <%#= link_to 'Log Now!', new_user_activity_path(@user_activity, :activity_id => a.id), class: 'override-btn override-btn-primary' %>
+            <!-- </p> -->
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</section> <!-- .section -->

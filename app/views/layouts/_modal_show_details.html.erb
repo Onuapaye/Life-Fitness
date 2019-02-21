@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+
+<h3>This is the show page</h3>
+<div class="media">
+        <div class="pull-left">
+            <% if @user_activity.activity.activity_avatar.present? %>
+              <%= image_tag @user_activity.activity.activity_avatar.url(:thumb), class: 'img-circle img-online', alt:'Activity Image' %>
+            <% else %>
+              <%= image_tag asset_path('fitnezz_css/img/no-image.png'), class: 'img-circle img-online', alt:'Activity Image' %>
+            <% end %>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading"><%= @user_activity.activity.activity_name %> <br/>
+                <small><%= @user_activity.user_activity_note %>.</small>
+            </h4>
+            <div class="media-content">
+                <i class="fa fa-map-date"></i> <%= @user_activity.user_activity_date %>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-time"></i> <%= @user_activity.user_activity_start %></li>
+                    <li><i class="fa fa-time"></i> <%= @user_activity.user_activity_end %></li>
+                    <li><i class="fa fa-time"></i> <%= @user_activity.updated_at %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<%#= link_to 'Edit', edit_user_activity_path(@user_activity) %> |
+<%#= link_to 'Back', user_activities_path %>

@@ -1,0 +1,31 @@
+<%= devise_error_messages! %>
+
+<h4 class="text-center mb5">Confirmation Status</h4>
+
+<div class="form-group">
+	<div class="col-sm-12">
+		<div class="input-group mb15">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+			<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:" E-mail address", required: "required", type: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+		</div>
+		<label for="user_email" class="error"></label>
+	</div>
+</div><!-- form-group -->
+
+<div class="row">
+    <div class="col-sm-6">
+ 
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Cofirmation Status</h3>
+            </div>
+            
+            <div class="panel-body">
+              <h4>Your email address has been successfully confirmed.</h4>
+            </div>
+
+        </div><!-- panel -->
+        
+    </div><!-- col-sm-6 -->
+</div><!-- row -->

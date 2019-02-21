@@ -1,0 +1,17 @@
+<% if @user_activity.errors.any? %>
+
+  <div class="alert alert-danger">
+
+  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+    <strong>Oops!</strong>
+    <h2><%= pluralize(@user_activity.errors.count, "error") %> prevented the form from being submitted:</h2>
+
+    <ul>
+	    <% @user_activity.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+    </ul>
+
+  </div>
+
+<% end %>

@@ -1,0 +1,113 @@
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <!-- error message here -->
+  <div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <strong>Oops!</strong> 
+    <p>
+      <%= devise_error_messages! %>
+    </p>
+  </div>
+
+    <!-- user avartar-->
+  <div class="row">
+    <div class="col-sm-12">
+          <div class="text-center"> 
+            <%= image_tag get_user_avatar(resource, 80), class: "img-circle image-responsive" %>
+            <h4 class="profile-name mb5">User Avatar</h4>
+            <div class="btn-group">
+              <%#= f.file_field :user_avatar, class: "btn btn-primary btn-bordered" %>
+            </div>
+          </div>
+    </div>
+  </div><!-- row -->
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <%= f.text_field :user_first_name, autofocus: true, autocomplete: "first name", class: "form-control", placeholder: " First name" %>
+      </div><!-- input-group -->
+    </div>
+    <div class="col-sm-12">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <%= f.text_field :user_last_name, autofocus: true, autocomplete: "Last name", class: "form-control", placeholder: "Last name" %>
+      </div><!-- input-group -->
+    </div>
+  </div><!-- row -->
+  <!-- <br /> -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+        <%= f.number_field :user_age, autofocus: true, autocomplete: "age", class: "form-control",  placeholder: "Age" %>
+      </div><!-- input-group -->
+    </div>
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+        <%= f.text_field :user_telephone, autofocus: true, type: "tel", class: "form-control", placeholder: "Telephone" %>
+      </div><!-- input-group -->
+    </div>
+  </div><!-- row -->
+  <br />
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail address" %>
+      </div><!-- input-group -->
+    </div>
+  </div><!-- row -->
+  <!-- <br /> -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
+      </div><!-- input-group -->
+    </div>
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password" %>
+      </div><!-- input-group -->
+    </div>
+  </div><!-- row -->
+  <!-- <br /> -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+        <%= select("user", "role_id", Role.all.collect {|r| [ r.role_name, r.id ] }, {include_blank: "Select Membership type"}, class: "form-control") %>
+      </div><!-- input-group -->
+    </div>
+    <div class="col-sm-6">
+      <div class="input-group mb15">
+        <div class="pull-left">
+          <div class="ckbox ckbox-primary mt5">
+            <%= f.check_box :user_status, {type: "checkbox", id: "user_status"}, :true, :false %>
+            <label for="user_status"><%= get_label_status %></label>
+          </div>
+        </div>
+      </div><!-- input-group -->
+    </div>
+  </div><!-- row -->
+  <!-- <br /> -->
+  <div class="clearfix">
+    <div class="pull-left">
+      <div class="ckbox ckbox-primary mt5">
+        <input type="checkbox" id="agree" value="1">
+        <label for="agree">I agree with <a href="">Terms and Conditions</a></label>
+      </div>
+    </div>
+    <div class="pull-right">
+      <%= f.submit "Submit Registration", class: "btn btn-success " %><!-- <span class="fa fa-angle-right ml5"></span> -->
+    </div>
+  </div>
+
+<% end %>
+

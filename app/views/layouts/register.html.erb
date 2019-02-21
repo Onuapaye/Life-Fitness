@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sign Up</title>
+
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="<%= asset_path('chain/style.default.css') %>" rel="stylesheet">
+    <link href="<%= asset_path('chain/select2.css') %>" rel="stylesheet" />
+    <link href="<%= asset_path('custom_bis.css') %>" rel="stylesheet" />
+
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <!-- <script src="//cdn.ckeditor.com/4.11.2/full/ckeditor.js"></script> -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="signin">
+
+    <section>
+
+        <div class="panel panel-signup">
+            <div class="panel-body">
+              <div class="logo text-center">
+                <img src="<%= asset_path('chain/images/logo-primary.png') %>" alt="Logo" >
+              </div>
+                <h4 class="text-center mb5">Member Registration</h4>
+                <p class="text-center">Please enter your credentials below</p>
+
+                <!-- <div class="mb30"></div> -->
+
+                    <%= yield %>
+
+            </div><!-- panel-body -->
+            
+            <!-- <div class="panel-footer"> -->
+                <%= render "users/shared/links" %>
+              <!-- <a href="signin.html" class="btn btn-primary btn-block">Already a Member? Sign In</a> -->
+            <!-- </div>panel-footer -->
+
+        </div><!-- panel -->
+
+    </section>
+
+    <script src="<%= asset_path('chain/jquery-1.11.1.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery-migrate-1.2.1.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery-ui-1.10.3.min.js') %>"></script>
+    <script src="<%= asset_path('chain/bootstrap.min.js') %>"></script>
+    <script src="<%= asset_path('chain/modernizr.min.js') %>"></script>
+    <script src="<%= asset_path('chain/pace.min.js') %>"></script>
+    <script src="<%= asset_path('chain/retina.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery.cookies.js') %>"></script>
+
+    <script src="<%= asset_path('chain/bootstrap-wizard.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery.validate.min.js') %>"></script>
+    <script src="<%= asset_path('chain/select2.min.js') %>"></script>
+
+    <script src="<%= asset_path('chain/custom.js') %>"></script>
+    <script src="<%= asset_path('chain/forms-wizards-validations.js') %>"></script>
+
+</body>
+</html>

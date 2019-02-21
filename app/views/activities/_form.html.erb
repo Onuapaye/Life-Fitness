@@ -1,0 +1,106 @@
+<style type="text/css">
+  .img-edit {
+    border-radius: 50%;
+  }
+  .img-sm {
+    max-height: 10px;
+    max-width: 10px;
+  }
+  .img-thumb {
+    max-height: 100px;
+    max-width: 100px;
+  }
+</style>
+
+<%= form_with(model: activity, local: true, html: { multipart: true }) do |frm| %>
+
+        <div class="panel-body">
+        
+            <!-- DISPLAY ERRORS HERE IF ANY -->
+            <% if @activity.errors.any? %>
+
+              <div class="alert alert-danger">
+
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                <strong>Oops!</strong>
+                <h2><%= pluralize(@activity.errors.count, "error") %> prevented the form from being submitted:</h2>
+
+                <ul>
+                  <% @activity.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+
+              </div>
+
+            <% end %>
+            
+
+            <!-- <div class="row" > -->
+
+              <div class="col-md-2">
+
+                <div class="form-group">
+                    <!-- <label class="col-sm-3 control-label"><%= get_label_avatar %> <span class="asterisk">*</span></label> -->
+                    <center>
+                      <div class="col-sm-12">
+                         <% if activity.activity_avatar? %>
+                           <%= image_tag activity.activity_avatar.url(:thumb), class:'img-online' %>
+                          <% else %>
+                            <img src="<%= asset_path('fitnezz_css/img/no-image.png') %>" class="img-thumb img-online">
+                         <% end %>
+                          <h5 class="profile-name mb5">&nbsp;</h5>
+                          <div class="image-bis">
+                            <label for="file-input">
+                              <span class="glyphicon glyphicon-camera fa-3x", title='Click to uplod Avatar/Photo'></span>
+                            </label>
+                              <%= frm.file_field :activity_avatar, id:'file-input' %>
+                          </div>
+                      </div>
+                    </center>
+                </div><!-- form-group -->
+              </div>
+
+              <div class="col-md-5">
+                <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_label_name %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_field :activity_name, autofocus: true, class: 'form-control', title: 'Activity name' %>
+                    </div>
+                </div><!-- form-group -->
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_label_min_duration %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_field :activity_min_duration, class: 'form-control', title: "Minidum duration: #{show_time_format_hint}" %>
+                    </div>
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_label_max_duration %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_field :activity_max_duration, class: 'form-control', title: "Maximum duration: #{show_time_format_hint}" %>
+                    </div>
+                </div><!-- form-group -->
+                </div>
+              </div>
+
+                <div class="col-md-5">
+                <div class="form-group">
+                    <label class="col-sm-12 control-label"><%= get_label_description %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-12">
+                        <%= frm.text_area :activity_description, autofocus: true, class: 'form-control', title: 'Enter a note for this activity', rows: '5' %>
+                    </div>
+                </div><!-- form-group -->
+
+              </div>
+            <!-- </div>row -->
+
+            <div class="col-sm-9 col-sm-offset-3">
+                <button class="btn btn-primary mr5">Submit</button>
+                <!-- <button aria-hidden="false" class="btn btn-sm btn-danger" type="button">Close</button> -->
+            </div>
+        </div><!-- panel-body -->
+
+<% end %>

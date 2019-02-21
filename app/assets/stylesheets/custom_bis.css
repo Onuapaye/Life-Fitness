@@ -1,0 +1,9 @@
+.image-bis > input {
+    display: none;
+    text-align: center;
+}
+
+.image-bis > label {
+  cursor:pointer;
+  text-align: center;
+}

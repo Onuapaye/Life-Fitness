@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+
+    <div class="list-group contact-group">
+       <div class="list-group-item">
+
+    	<!-- <a href="#" class="list-group-item"> -->
+        <div class="media">
+            <div class="pull-left">
+                
+                <% if (@role.role_name == 'ADMIN'.downcase) || (@role.role_name == 'ADMINISTRATOR'.downcase) %>
+    			  <img class="img-online" src="<%= asset_path('chain/images/admin.png') %>" alt="Admin Image">
+    			<% elsif @role.role_name == 'MEMBER'.downcase %>
+    			  	<img class="img-online" src="<%= asset_path('chain/images/admin-group.png') %>" alt="Member Image">
+    			<% else %>
+    			  <img class="img-online" src="<%= asset_path('chain/images/manager.png') %>" alt="Disabled Image">
+    			<% end %>
+            </div>
+
+            <div class="media-body">
+                <h4 class="media-heading"><%= @role.role_name.upcase %><small>Role</small></h4>
+                <div class="media-content">
+                    <i class="fa fa-info-circle"></i><%= @role.role_description %>
+                    <ul class="list-unstyled">
+
+                    	<% if @role.role_status == true %>
+		                  <li title="Role Status"><i class="fa fa-clock-o"></i><%= get_active_status %></li>
+		                <% else %>
+		                  <li title="Role Status"><i class="fa fa-clock-o"></i><%= get_in_active_status %></li>
+		                <% end %>
+
+                    	<% if @role.created_at? %>
+		                  <li title="Date Created"><i class="fa fa-clock-o"></i><%= @role.created_at.strftime('%Y %b %d') %> <span>@ <%= @role.created_at.strftime('%H:%M:%S') %></span></li>
+		                <% else %>
+		                  <li title="Date Created"><i class="fa fa-clock-o"></i><%= @role.created_at %></li>
+		                <% end %>
+
+		                <% if @role.updated_at? %>
+		                  <li title="Date Updated"><i class="fa fa-clock-o"></i><%= @role.updated_at.strftime('%Y %b %d') %> @ <span><%= @role.updated_at.strftime('%H:%M:%S') %></span></li>
+		                <% else %>
+		                  <li title="Date Updated"><i class="fa fa-clock-o"></i><%= @role.updated_at %></li>
+		                <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div><!-- media -->
+    	<!-- </a>list-group -->
+    </div>
+</div>
+
+<%= link_to 'Edit', edit_role_path(@role), class: 'btn btn-success btn-sm' %> |
+<%= link_to 'Back', roles_path, class: 'btn btn-default btn-sm' %>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Member Login</title>
+
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="<%= asset_path('chain/style.default.css') %>" rel="stylesheet">
+</head>
+
+<body class="signin">
+
+    <section>
+
+        <div class="panel panel-signin">
+
+            <div class="panel-body">
+                
+                <div class="logo text-center">
+                    <img src="<%= asset_path('chain/images/logo-primary.png') %>" alt="Logo" >
+                </div>
+                <br />
+                <h4 class="text-center mb5">Already a Member?</h4>
+                <p class="text-center">Sign in to your account</p>
+
+                <div class="mb30"></div>
+
+                <%= yield %>
+
+            </div><!-- panel-body -->
+          
+            <%= render "users/shared/links" %>
+        </div><!-- panel -->
+
+    </section>
+
+    <script src="<%= asset_path('chain/jquery-1.11.1.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery-migrate-1.2.1.min.js') %>"></script>
+    <script src="<%= asset_path('chain/bootstrap.min.js') %>"></script>
+    <script src="<%= asset_path('chain/modernizr.min.js') %>"></script>
+    <script src="<%= asset_path('chain/pace.min.js') %>"></script>
+    <script src="<%= asset_path('chain/retina.min.js') %>"></script>
+    <script src="<%= asset_path('chain/jquery.cookies.js') %>"></script>
+
+    <script src="<%= asset_path('chain/custom.js') %>"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+
+  <li class="active">
+    <a href="<%= dash_path %>"><i class="fa fa-home"></i> <span>Dashboard</span>
+    </a>
+  </li>
+
+<li class="parent"><a href=""><i class="fa fa-suitcase"></i> <span>My Account</span></a>
+  <ul class="children">
+    <li><a href="<%= show_user_profile_url(current_user)%>">Profile</a></li>
+    <li><a href="<%= custom_edit_user_registration_url(current_user) %>">Modifications</a></li>
+    <!-- <li><a href="#">My Payments</a></li> -->
+  </ul>
+</li>
+
+<li class="parent"><a href=""><i class="fa fa-file-text"></i> <span>Activity Logs</span></a>
+  <ul class="children">
+    <li><a href="<%= user_activities_path %>">My Activity Logs</a></li>
+    <li><a href="<%= new_user_activity_path %>">Log New Activity</a></li>
+    <li><a href="#">Get Reports</a></li>
+  </ul>
+</li>

@@ -1,0 +1,45 @@
+<% if (current_user.role.role_name.downcase == UsersHelper::GET_USER_TYPE['admin_full'].downcase) || (current_user.role.role_name == UsersHelper::GET_USER_TYPE['admin_short'].downcase) then %>
+
+	<!-- CONTENTS FOR ADMIN USERS -->
+  <ul class="nav nav-pills nav-stacked">
+
+     <!-- RENDER A PARTIAL FORM COMMON TO ALL USERS -->
+     <%= render partial: 'layouts/commons/common_navitems' %>
+
+      <li class="parent"><a href=""><i class="fa fa-suitcase"></i> <span>Activity Management</span></a>
+        <ul class="children">
+          <li><a href="<%= activities_path %>">All Activities</a></li>
+          <li><a href="<%= new_activity_path %>">New Activity</a></li>
+          <!-- <li><a href="extras.html">Edit Activity</a></li> -->
+          <li><a href="#">Generate Report</a></li>
+        </ul>
+      </li>
+
+      <li class="parent"><a href=""><i class="fa fa-suitcase"></i> <span>System Management</span></a>
+        <ul class="children">
+          <li><a href="<%= users_list_path %>">Manage Users</a></li>
+          <li><a href="<%#= companies_path %>">Manage Entity</a></li>
+          <li><a href="extras.html">Settings &amp; Configuration</a></li>
+          <li><a href="graphs.html">System Logs Report</a></li>
+        </ul>
+      </li>
+  
+  </ul>
+	
+<% else %>
+
+	<!-- CONTENTS FOR OTHER USERS -->
+  <ul class="nav nav-pills nav-stacked">
+
+     <!-- RENDER A PARTIAL FORM COMMON TO ALL USERS -->
+     <%= render partial: 'layouts/commons/common_navitems' %>
+
+      <li class="parent"><a href=""><i class="fa fa-suitcase"></i> <span>Activity Management</span></a>
+        <ul class="children">
+          <li><a href="alerts.html">All Activities</a></li>
+        </ul>
+      </li>
+  
+  </ul>
+
+<% end %>

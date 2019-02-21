@@ -1,0 +1,249 @@
+<style type="text/css">
+    .i-class {
+        color: #ff6600;"
+        font-weight: bold;
+    }
+</style>
+
+<div class="contentpanel">
+    
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="text-center">
+               
+                <%= image_tag get_user_avatar(@user, 100), class: "img-circle img-offline img-responsive img-profile", alt:"user avatar" %>
+                
+                <h4 class="profile-name mb5"><%= @user.user_first_name.titleize %>&nbsp;<%= @user.user_last_name.titleize %></h4>
+                <div><i class="fa fa-map-marker i-class"></i> Vitry-sur-Seine, Paris, France</div>
+                <div><i class="fa fa-briefcase i-class"></i> Has <%= @user.role.role_name %> Role.</div>
+                
+                <div class="mb20"></div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-bordered">Following</button>
+                    <button class="btn btn-primary btn-bordered">Followers</button>
+                </div>
+            </div><!-- text-center -->
+            
+            <br>
+            
+            <h5 class="md-title">About</h5>
+            <p class="mb30">
+                Write something about yourself in the application and save it to load here... 
+            </p>
+            
+            <h5 class="md-title">Connect</h5>
+            <ul class="list-unstyled social-list">
+                <li><i class="fa fa-envelope i-class"></i> <a href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
+                <li><i class="fa fa-twitter i-class"></i> <a href="">twitter.com/eileensideways</a></li>
+                <li><i class="fa fa-facebook i-class"></i> <a href="">facebook.com/eileen</a></li>
+                <li><i class="fa fa-youtube i-class"></i> <a href="">youtube.com/eileen22</a></li>
+                <li><i class="fa fa-linkedin i-class"></i> <a href="">linkedin.com/4ever-eileen</a></li>
+                <li><i class="fa fa-pinterest i-class"></i> <a href="">pinterest.com/eileen</a></li>
+                <li><i class="fa fa-instagram i-class"></i> <a href="">instagram.com/eiside</a></li>
+            </ul>
+            
+            <div class="mb30"></div>
+            
+            <h5 class="md-title">Address</h5>
+            <address>
+                5 Rue du Lion, 94400<br>
+                Vitry-sur-Seine, France<br>
+                <abbr title="Phone">P:</abbr> (+33) 07 71 72 79 09
+            </address>
+
+            <% if (current_user.role.role_name.downcase == "admin".downcase) or (current_user.role.role_name.downcase == "Administrator".downcase) %>
+                <%= link_to 'User List', users_list_path, class: 'btn btn-warning btn-sm' %> &nbsp;&nbsp;
+                <%= link_to 'My Activities', user_activities_path, class: 'btn btn-primary btn-sm' %>
+            <% else %>
+                <%= link_to 'My Activities', user_activities_path, class: 'btn btn-warning btn-sm' %>
+                &nbsp;&nbsp;
+                <%= link_to 'Dashboard', dash_path, class: 'btn btn-primary btn-sm' %>
+            <% end %>
+
+        </div><!-- col-sm-4 col-md-3 -->
+        
+        <div class="col-sm-8 col-md-9">
+          
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-line">
+                <li class="active"><a href="#activities" data-toggle="tab"><strong>Activities</strong></a></li>
+                <li><a href="#followers" data-toggle="tab"><strong>Followers</strong></a></li>
+                <li><a href="#following" data-toggle="tab"><strong>Following</strong></a></li>
+                <li><a href="#events" data-toggle="tab"><strong>My Events</strong></a></li>
+            </ul>
+            
+            <!-- Tab panes -->
+            <div class="tab-content nopadding noborder">
+                <div class="tab-pane active" id="activities">
+                    <div class="activity-list">  
+
+                        <% @user_activities.each do |u_activity| %>
+                        
+                        <div class="media">
+                            <div class="pull-left" >
+                                <% if u_activity.activity.activity_avatar %>
+                                    <%= image_tag u_activity.activity.activity_avatar.url(:thumb), class: "media-object img-circle", alt:"activity avatar" %>
+                                <% else %>
+                                    <img src="<%= asset_path('chain/images/photos/profile-big.jpg') %>" class="media-object img-circle" alt="activity avatar">
+                                <% end %>
+                            </div>
+                            <div class="media-body">
+                                <strong><%= u_activity.activity.activity_name.upcase %></strong>&nbsp;&nbsp;&nbsp;<i class="fa fa-laptop i-class"></i>&nbsp;You logged this activity on.. <br>
+                                <small class="text-muted"><%= u_activity.created_at.strftime('%Y %B %d') %> &#64; <%= u_activity.created_at.strftime('%H:%M:%S') %></small>
+                                
+                                <div class="media blog-media">
+                                    <div class="pull-left" >
+                                        <% if u_activity.activity.activity_avatar %>
+                                            <%= image_tag u_activity.activity.activity_avatar.url(:thumb), class: "media-object thumbnail", alt:"activity avatar" %>
+                                        <% else %>
+                                            <img src="<%= asset_path('chain/images/photos/media5.png') %>" class="media-object thumbnail" alt="activity avatar">
+                                        <% end %>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-title"><a href=""><%= u_activity.activity.activity_name.titleize %></a></h4>
+                                        <p>
+                                            <%= u_activity.user_activity_note %>
+                                        </p>
+                                    </div>
+                                </div><!-- media -->      
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                        <% end %>
+                        
+                    </div><!-- activity-list -->
+                </div><!-- tab-pane -->
+                
+                <div class="tab-pane" id="followers">
+                    
+                    <div class="follower-list">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object img-circle" src="<%= asset_path('fitnezz_css/img/no-image.png') %>" style="width: 100px; height: 100px;">
+                            </a>
+                            <div class="media-body">
+                                <h3 class="follower-name">Ray Sin</h3>
+                                <div><i class="fa fa-map-marker"></i> San Francisco, California, USA</div>
+                                <div><i class="fa fa-briefcase"></i> Software Engineer at <a href="">SomeCompany, Inc.</a></div>
+                                
+                                <div class="mb20"></div>
+                                
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <button class="btn btn-dark btn-xs"><i class="fa fa-envelope-o"></i> Send Message</button>
+                                    </div><!-- btn-group -->
+                                    <div class="btn-group">
+                                        <button class="btn btn-white btn-xs"><i class="fa fa-check"></i> Following</button>
+                                        <button class="btn btn-white btn-xs"><i class="fa fa-check"></i> Followers</button>
+                                    </div><!-- btn-group -->
+                                    
+                                </div><!-- btn-toolbar -->
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                        
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object img-circle" src="<%= asset_path('fitnezz_css/img/no-image.png') %>" style="width: 100px; height: 100px;">
+                            </a>
+                            <div class="media-body">
+                                <h3 class="follower-name">Weno Carasbong</h3>
+                                <div><i class="fa fa-map-marker"></i> Cebu City, Philippines</div>
+                                <div><i class="fa fa-briefcase"></i> Software Engineer at <a href="">ITCompany, Inc.</a></div>
+                                
+                                <div class="mb20"></div>
+                                
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <button class="btn btn-dark btn-xs"><i class="fa fa-envelope-o"></i> Send Message</button>
+                                    </div><!-- btn-group -->
+                                    <div class="btn-group">
+                                        <button class="btn btn-white btn-xs"><i class="fa fa-check"></i> Following</button>
+                                        <button class="btn btn-white btn-xs"><i class="fa fa-check"></i> Followers</button>
+                                    </div><!-- btn-group -->
+                                </div><!-- btn-toolbar -->
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                    </div><!--follower-list -->
+                </div><!-- tab-pane -->
+                
+                <div class="tab-pane" id="following">
+                    
+                    <div class="activity-list">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object img-circle" src="<%= asset_path('chain/images/photos/user2.png') %>" alt="">
+                            </a>
+                            <div class="media-body">
+                                <strong>Chris Anthemum</strong> liked a photos<br>
+                                <small class="text-muted">Today at 12:30pm</small>
+                                
+                                <ul class="uploadphoto-list">
+                                    <li><a href="<%= asset_path('chain/images/photos/media5.png') %>" data-rel="prettyPhoto"><img src="<%= asset_path('chain/images/photos/media5.png') %>" class="thumbnail img-responsive" alt=""></a></li>
+                                    <li><a href="<%= asset_path('chain/images/photos/media4.png') %>" data-rel="prettyPhoto"><img src="<%= asset_path('chain/images/photos/media4.png') %>" class="thumbnail img-responsive" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div><!-- media -->
+                        
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object img-circle" src="<%= asset_path('chain/images/photos/user1.png') %>" alt="">
+                            </a>
+                            <div class="media-body">
+                                <strong>Ray Sin</strong> is now following to <strong>Chris Anthemum</strong>. <br>
+                                <small class="text-muted">Yesterday at 1:30pm</small>
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                        
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object img-circle" src="<%= asset_path('chain/images/photos/user4.png') %>" alt="">
+                            </a>
+                            <div class="media-body">
+                                <strong>Frank Furter</strong> is now following to <strong>Ray Sin</strong>. <br>
+                                <small class="text-muted">3 days ago at 1:30pm</small>
+                            </div>
+                        </div><!-- media -->
+                    </div><!-- activity-list -->
+                </div><!-- tab-pane -->
+                
+                <div class="tab-pane" id="events">
+                    <div class="events">
+                        <h5 class="lg-title mb20">Upcoming Events</h5>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object thumbnail" src="<%= asset_path('chain/images/no-image.png') %>" style="width: 100px; height: 120px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="event-title"><a href="">Free Living Trust Seminar</a></h4>
+                                        <small class="text-muted"><i class="fa fa-map-marker"></i> Silicon Valley, San Francisco, CA</small>
+                                        <small class="text-muted"><i class="fa fa-calendar"></i> Sunday, January 15, 2014 at 11:00am</small>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                                    </div>
+                                </div><!-- media -->
+                            </div><!-- col-sm-6 -->
+                            
+                            <div class="col-sm-6">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object thumbnail" src="<%= asset_path('chain/images/no-image.png') %>" style="width: 100px; height: 120px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="event-title"><a href="">Serious Games Seminar</a></h4>
+                                        <small class="text-muted"><i class="fa fa-map-marker"></i> New York City</small>
+                                        <small class="text-muted"><i class="fa fa-calendar"></i> Monday, January 14, 2014 at 8:00am</small>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                                    </div>
+                                </div><!-- media -->
+                            </div><!-- col-sm-6 -->
+                        </div><!-- row -->
+                    </div><!-- events -->
+                </div><!-- tab-pane -->
+                
+            </div><!-- tab-content -->
+            
+        </div><!-- col-sm-9 -->
+    </div><!-- row -->  
+
+</div>

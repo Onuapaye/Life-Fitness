@@ -1,0 +1,186 @@
+<div class="contentpanel contentpanel-wizard">            
+    <!-- <div class="row"> -->
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {id: "progressWizard", class: "panel-wizard", novalidate: "novalidate"}) do |f| %>
+
+<!-- PROGRESS WIZARD -->
+
+<ul class="nav nav-justified nav-wizard nav-disabled-click nav-pills">
+	<li class="active">
+		<a href="#tab1-4" data-toggle="tab" marked="1"><strong>Step 1:</strong> Demography</a>
+	</li>
+	<li >
+		<a href="#tab2-4" data-toggle="tab" marked="1"><strong>Step 2:</strong> Account</a>
+	</li>
+	<li class="done">
+		<a href="#tab3-4" data-toggle="tab" marked="1"><strong>Step 3:</strong> Payment</a>
+	</li>
+</ul>
+
+<div class="progress progress-xs">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1-4">
+			<div class="row">
+
+				<!-- <div class="col-sm-12">
+					<div class="form-group">
+						<center>
+						    <div class="col-sm-12">
+					            <%#= image_tag get_user_avatar(resource, 80), class:'img-online' %>
+					            <h5 class="profile-name mb5">&nbsp;</h5>
+					            <div class="image-bis">
+						        	<label for="file-input">
+								      <span class="glyphicon glyphicon-camera fa-3x", title='Click to uplod Avatar/Photo'></span>
+								    </label>
+						            <%#= f.file_field :user_avatar, id:'file-input' %>
+					        	</div>
+						    </div>
+						</center>
+					</div>
+				</div> -->
+
+				<div class="col-sm-6">
+					<div class="form-group">
+						<!-- <label for="user_user_first_name" class="col-sm-3"><%#= get_user_first_name %></label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<%= f.text_field :user_first_name, autofocus: true, autocomplete: "first name", class: "form-control", placeholder:"First name", required: "required" %>
+							</div>
+							<label for="user_user_first_name" class="error"></label>
+						</div>
+					</div><!-- form-group -->
+
+					<div class="form-group">
+						<!-- <label for="user_user_last_name" class="col-sm-3"><%#= get_user_last_name %></label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<%= f.text_field :user_last_name, autofocus: true, autocomplete: "last name", class: "form-control", placeholder:"Last name", required: "required" %>
+							</div>
+							<label for="user_user_last_name" class="error"></label>
+						</div>
+					</div><!-- form-group -->
+				</div>
+
+				<div class="col-sm-6">
+
+					<div class="form-group">
+						<!-- <label for="user_user_age" class="col-sm-3"><%#= get_user_age %></label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+								<%= f.number_field :user_age, autofocus: true, autocomplete: "age", class: "form-control",  placeholder: "Age", required: "required" %>
+							</div>
+							<label for="user_user_age" class="error"></label>
+						</div>
+					</div><!-- form-group -->
+
+					<div class="form-group">
+						<!-- <label for="user_user_telephone" class="col-sm-3"><%#= get_user_telephone %></label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+								<%= f.text_field :user_telephone, autofocus: true, type: "tel", class: "form-control", placeholder: "Telephone" %>
+							</div>
+						</div>
+					</div><!-- form-group -->
+				</div>
+			</div>
+		</div><!-- tab-pane -->
+
+		<div class="tab-pane" id="tab2-4">
+			<div class="row">
+				<div class="col-sm-6">
+				
+					<div class="form-group">
+						<!-- <label for="user_email" class="col-sm-4"><%#= get_user_email %></label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+								<%= f.text_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:" E-mail address", type: "email"%>
+							</div>
+							<label for="user_email" class="error"></label>
+						</div>
+					</div><!-- form-group -->
+
+					<div class="form-group">
+							<!-- <label class="col-sm-4" for="user_role_id"><%#= get_membership_type %></label> -->
+							<div class="col-sm-12">
+								<div class="input-group mb15">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+									<%= select("user", "role_id", Role.where.not(:role_name.downcase =>'Administrator'.downcase).all.collect {|r| [ r.role_name, r.id]}, {include_blank: ""}, data: {placeholder: "Select Membership type"}, class: "form-control", required:'required') %>
+								</div>
+								<label class="error" for="user_role_id"></label>
+							</div>
+					</div><!-- form-group -->
+
+				</div>
+
+				<div class="col-sm-6">
+
+					<div class="form-group">
+						<!-- <label for="user_password" class="col-sm-4">Password</label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<%= f.text_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password", required: "required", type:"password" %>
+							</div>
+							<label for="user_password" class="error"></label>
+						</div>
+					</div> <!-- form-group -->
+
+					<div class="form-group">
+						<!-- <label for="user_password_confirmation" class="col-sm-4">Confirm Password</label> -->
+						<div class="col-sm-12">
+							<div class="input-group mb15 ">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password", required: "required" %>
+							</div>
+							<label for="user_password_confirmation" class="error"></label>
+						</div>
+					</div><!-- form-group -->
+				</div>
+
+				<div class="col-sm-6">
+					<div class="form-group">
+						<!-- <label for="user_status" class="col-sm-4"><%# get_label_status %></label> -->
+						<div class="col-sm-12">
+							<div class="ckbox ckbox-primary mt5">
+							<%= f.check_box :user_status, {type: "checkbox", id: "user_status"}, :true, :false %>
+							<label for="user_status"><%= get_label_status %></label>
+						</div>
+						</div>
+					</div><!-- form-group -->
+				</div>
+			</div>
+		</div><!-- tab-pane -->
+
+		<div class="tab-pane" id="tab3-4">
+			<div class="row">
+				<div class="form-group">
+					<!-- <label class="col-sm-4">Card No</label> -->
+					<div class="col-sm-12">
+						<!-- <input type="text" name="cardno" class="form-control"> -->
+						<label><h3>Payment will soon be implemented</h3></label>
+					</div>
+				</div><!-- form-group -->
+			</div>
+		</div><!-- tab-pane -->
+
+	</div><!-- tab-content -->
+
+	<ul class="list-unstyled wizard">
+		<li class="pull-left previous disabled"><button type="button" class="btn btn-default btn-sm">Previous</button></li>
+		<li class="pull-right next"><button type="button" class="btn btn-warning btn-sm">Next</button></li>
+		<li class="pull-right finish hide"><button type="submit" class="btn btn-warning btn-sm">Finish</button></li>
+	</ul>
+
+	<% end %>
+
+<!-- </div> -->
+</div>
+

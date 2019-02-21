@@ -1,0 +1,24 @@
+<div id="show-delete-modal" class="modal fade bs-example-modal-static" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                <h4 class="modal-title">Delete User Activity</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="media"><!-- media start -->
+                  Are you sure you wish to delete <b><%= @user_activity.activity.activity_name.upcase %></b> from your Activity Logs?
+                </div><!-- media end -->
+
+                <div class="media">
+                    <%= link_to "Yes, Delete", user_activity_path(@user_activity), method: :delete, remote: true, class: "btn btn-danger btn-small" %>
+                    <%= link_to "No, Don't", "#", class: "btn btn-default btn-small", data: { dismiss: "modal" } %>
+                </div>
+  
+            </div>
+            
+        </div>
+    </div>
+</div>

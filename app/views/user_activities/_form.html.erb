@@ -1,0 +1,61 @@
+<%= form_with(model: user_activity, local: true, remote: true) do |frm| %>
+
+    <div class="row">
+
+        <div class="panel-body">
+        
+            <!-- DISPLAY ERRORS HERE IF ANY -->
+            <div id="errors-div"></div>
+            
+            <%#= render partial: 'layouts/form_errors_alert', locals:{object: @user_activity} %>
+
+            <div class="row">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_activity_name %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= select_tag 'user_activity[activity_id]', options_for_select(Activity.all.collect{ |a| [a.activity_name.titleize, a.id] }), class:'form-control' %>
+                    </div>
+                </div><!-- form-group -->
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_user_activity_date %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_field :user_activity_date, autofocus: true, class: 'form-control', title: 'Date of activity', value: date_format(frm.object.user_activity_date) %>
+                    </div>
+                </div><!-- form-group -->
+            
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_user_activity_start_time %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_field :user_activity_start, autofocus: true, class: 'form-control', title: 'Activity start time', value: time_format(frm.object.user_activity_start) %>
+                    </div>
+                </div><!-- form-group -->
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_user_activity_end_time %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.time_field :user_activity_end, autofocus: true, class: 'form-control', title: 'Activity start end',  :value => time_format(frm.object.user_activity_end) %>
+                    </div>
+                </div><!-- form-group -->
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><%= get_user_activity_note %> <span class="asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <%= frm.text_area :user_activity_note, autofocus: true, class: 'form-control', title: 'Enter a note for this activity', rows: '4' %>
+                    </div>
+                </div><!-- form-group -->
+            </div><!-- row -->
+
+            <div class="col-sm-9 col-sm-offset-3">
+                <button class="btn btn-primary btn-sm mr5">Submit</button>
+                <%#= frm.submit %>
+                <!-- <button type="reset" class="btn btn-dark btn-sm">Reset</button> -->
+                <button aria-hidden="false" data-dismiss="modal" class="btn btn-sm btn-danger" type="button">Close</button>
+                <%#= link_to 'Back', user_activities_path, class: 'btn btn-dark btn-sm' %>
+            </div>
+        </div><!-- panel-body -->
+
+    </div><!-- panel -->
+
+<% end %>

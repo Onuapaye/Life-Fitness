@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Life Fitness</title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- DISABLING THIS LINE WILL MAKE e.g DELETE popup message not show -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <link href="<%= asset_path('chain/style.default.css') %>" rel="stylesheet">
+    <link href="<%= asset_path('chain/morris.css') %>" rel="stylesheet">
+    <link href="<%= asset_path('chain/select2.css') %>" rel="stylesheet" />
+    <link href="<%= asset_path('custom_bis.css') %>" rel="stylesheet" />
+
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+    <body>
+
+      <header>
+        <div class="headerwrapper">
+          <div class="header-left">
+            <a href="<%= dash_path %>" class="logo" marked="1">
+              <%= image_tag('chain/images/logo.png') %>
+            </a>
+            <div class="pull-right">
+              <a href="" class="menu-collapse" marked="1">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+
+          </div><!-- header-left -->
+
+          <div class="header-right">
+
+            <div class="pull-right">
+
+              <form class="form form-search" action="search-results.html">
+                <input type="search" class="form-control" placeholder="Search">
+              </form>
+
+              <div class="btn-group btn-group-option">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li><a href="<%= show_user_profile_url(current_user) %>" marked="1"><i class="glyphicon glyphicon-user"></i><%= current_user.email %></a></li>
+                  <li><a href="<%= user_activities_path %>" marked="1"><i class="glyphicon glyphicon-star"></i> Activity Log</a></li>
+                  <li><a href="#" marked="1"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+                  <li><a href="#" marked="1"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
+                  <li class="divider"></li>
+                    <% if user_signed_in? %>
+                      <%#= link_to 'Sign Out', destroy_user_session_path(@current_user), :method => 'delete' %> 
+                      <li>
+                        <a href="<%= destroy_user_session_path %>" marked='1' rel="nofollow" data-method="delete"><i class="glyphicon glyphicon-log-out"></i>Sign Out
+                        </a>
+                      </li>
+                    <% else %>
+                      <li>
+                        <a href="<%= new_user_session_path %>" marked='1'><i class="glyphicon glyphicon-log-in"></i>Sign In
+                        </a>
+                      </li>
+                        <%#= link_to('Sign In', new_user_session_path, :html => {marked:"1"})  %>  
+                    <% end %>
+                  </li>
+                </ul>
+              </div><!-- btn-group -->
+
+            </div><!-- pull-right -->
+
+          </div><!-- header-right -->
+
+        </div><!-- headerwrapper -->
+      </header>
+
+      <section>
+        <div class="mainwrapper">
+
+          <div class="leftpanel">
+
+            <div class="media profile-left">
+              <a class="pull-left profile-thumb" href="<%= show_user_profile_url(current_user) %>">
+                <%= image_tag get_user_avatar(current_user, 100), class: "img-circle image-responsive", alt: "user avatar" %>
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">
+                  <% if current_user.user_first_name != "" %>
+                    <%= current_user.user_first_name %>
+                  <% else %>
+                    Username
+                  <% end %>
+                </h4>
+                <small class="text-muted">
+                  <% if current_user.role.role_name != "" %>
+                    <!-- <span title="Membership type"><%#= current_user.role.role_name %></span></br> -->
+                    <span title="Last Sign-in IP <%= current_user.last_sign_in_ip %>"><%= current_user.last_sign_in_at.strftime('%Y %b %d @ %H:%M %p') %></span>
+                  <% else %>
+                    Rolename
+                  <% end %>
+                </small>
+              </div>
+            </div><!-- media -->
+
+            <h5 class="leftpanel-title">Navigation</h5>
+            
+            <!-- YIELD THE SIDEBAR CONTENTS HERE -->
+            <%= render partial: 'layouts/commons/dashboard_leftsidebar_nav' %>
+
+          </div><!-- leftpanel -->
+
+          <div class="mainpanel">
+            <div class="pageheader">
+              <div class="media">
+                <div class="pageicon pull-left">
+                  <i class="fa fa-home"></i>
+                </div>
+                <div class="media-body">
+                  <ul class="breadcrumb">
+                    <li><a href="<%= dash_path %>"><i class="glyphicon glyphicon-home"></i></a></li>
+                    <li>Dashboard</li>
+                  </ul>
+                  <h4>Dashboard</h4>
+                </div>
+              </div><!-- media -->
+            </div><!-- pageheader -->
+
+            <div class="contentpanel">
+
+              <!-- <p class="notice"><%= notice %></p> -->
+              <!-- <p class="alert"><%= alert %></p> -->
+
+              <%= yield %>
+
+            </div><!-- contentpanel -->
+
+          </div><!-- mainpanel -->
+        </div><!-- mainwrapper -->
+      </section>
+
+        <script src="<%= asset_path('chain/jquery-1.11.1.min.js') %>"></script>
+        <script src="<%= asset_path('chain/jquery-migrate-1.2.1.min.js') %>"></script>
+        <script src="<%= asset_path('chain/jquery-ui-1.10.3.min.js') %>"></script>
+        <script src="<%= asset_path('chain/bootstrap.min.js') %>"></script>
+        <script src="<%= asset_path('chain/modernizr.min.js') %>"></script>
+        <script src="<%= asset_path('chain/pace.min.js') %>"></script>
+        <script src="<%= asset_path('chain/retina.min.js') %>"></script>
+        <script src="<%= asset_path('chain/jquery.cookies.js') %>"></script>
+        
+        <script src="<%= asset_path('chain/flot/jquery.flot.min.js') %>"></script>
+        <script src="<%= asset_path('chain/flot/jquery.flot.resize.min.js') %>"></script>
+        <script src="<%= asset_path('chain/flot/jquery.flot.spline.min.js') %>"></script>
+        <script src="<%= asset_path('chain/jquery.sparkline.min.js') %>"></script>
+        <script src="<%= asset_path('chain/morris.min.js') %>"></script>
+        <script src="<%= asset_path('chain/raphael-2.1.0.min.js') %>"></script>
+
+        <script src="<%= asset_path('chain/bootstrap-wizard.min.js') %>"></script>
+        <script src="<%= asset_path('chain/jquery.validate.min.js') %>"></script>
+        <script src="<%= asset_path('chain/select2.min.js') %>"></script>
+               
+        <script src="<%= asset_path('chain/custom.js') %>"></script>
+        <script src="<%= asset_path('chain/forms-wizards-validations.js') %>"></script>
+        <!-- <script src="<%#= asset_path('chain/dashboard.js') %>"></script> -->
+  </body>
+</html>
