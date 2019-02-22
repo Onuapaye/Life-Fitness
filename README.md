@@ -1,14 +1,15 @@
-![GitHub Logo](/chain/images/git-images/life-fitness-home.png)
+![GitHub Logo](/images/logo.png)
+Format: ![App Homepage Image](/life-fitness-home.png)
 
 # Life Fitness
 
 This is a simple project about KEEPING HEALTHY by training or exercising all the time. The application was developed using Ruby on Rails (5) to help others learn the RoR framework especially the students I am mentoring in OpenClassrooms who are taking the Fullstack path.
 
-#Usage
+## Usage
 You are free to clone the project, modify it, and extend it as far as you can and even to the extent of commercializing it. All I need from you is an acknowledgement of my initiative.
 
 
-#About the Application
+## About the Application
 * Ruby version
     2.5.3
 * System dependencies
